@@ -12,7 +12,7 @@ const aiRouter=require('./routes/aichatting');
 
   app.use(
     cors({
-      origin: "http://localhost:5173",
+      origin: "https://lc-front-mauve.vercel.app/",
       credentials: true,
     })
   );
