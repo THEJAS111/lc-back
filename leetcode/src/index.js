@@ -16,7 +16,8 @@ app.use(
       "http://localhost:5173",              // local dev
       "https://lc-front-qbse.vercel.app",   // old frontend (if still active)
       "https://lc-front-mauve.vercel.app",  // your new frontend
-      "https://lc-front-asdo.vercel.app"    // 👈 the one from your error logs
+      "https://lc-front-asdo.vercel.app",
+      "https://lc-front-rkpp.vercel.app"
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
