@@ -10,18 +10,20 @@ const submitrouter=require('./routes/submit');
 const cors=require('cors');
 const aiRouter=require('./routes/aichatting');
 
-  app.use(
-    cors({
+app.use(
+  cors({
     origin: [
-      "http://localhost:5173",  // For local development
-      "https://lc-front-qbse.vercel.app",  // Your current frontend URL
-      "https://lc-front-mauve.vercel.app",
-       "https://lc-back-e4i9.vercel.app/user/check",
-       "https://lc-back-e4i9.vercel.app/user/signin"
+      "http://localhost:5173",              // local dev
+      "https://lc-front-qbse.vercel.app",   // old frontend (if still active)
+      "https://lc-front-mauve.vercel.app",  // your new frontend
+      "https://lc-front-asdo.vercel.app"    // 👈 the one from your error logs
     ],
-      credentials: true,
-    })
-  );
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+
+app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieparser());
