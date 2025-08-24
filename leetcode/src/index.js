@@ -22,6 +22,10 @@ app.use(
 app.use(express.json());
 app.use(cookieparser());
 
+app.get("/", (req, res) => {
+  res.send("🚀 Backend is running on Vercel!");
+});
+
 // Routes
 app.use("/user", authrouter);
 app.use("/problem", problemrouter);
