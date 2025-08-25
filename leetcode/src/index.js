@@ -9,6 +9,7 @@ const problemrouter = require("./routes/problemcreator");
 const submitrouter = require("./routes/submit");
 const cors = require("cors");
 const aiRouter = require("./routes/aichatting");
+
 // CORS setup
 app.use(
   cors({
@@ -17,25 +18,32 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   })
 );
+
 app.use(express.json());
 app.use(cookieparser());
+
 app.get("/", (req, res) => {
   res.send("🚀 Backend is running on Vercel!");
 });
-// Routes
-app.use("/user", authrouter);
-app.use("/problem", problemrouter);
-app.use("/submission", submitrouter);
-app.use("/ai", aiRouter);
-// DB + Redis initialization
+
+//  Register routes *after* DB + Redis are connected
 const initializeConnection = async () => {
   try {
     await Promise.all([main(), redisclient.connect()]);
-    console.log("✅ DB & Redis connected");
+    console.log(" DB & Redis connected");
+
+    // Routes
+    app.use("/user", authrouter);
+    app.use("/problem", problemrouter);
+    app.use("/submission", submitrouter);
+    app.use("/ai", aiRouter);
+
   } catch (err) {
-    console.error("❌ Error occurred: " + err);
+    console.error(" Error occurred: " + err);
   }
 };
+
 initializeConnection();
-// ✅ Instead of app.listen, export the app
+
+// ✅ Instead of app.listen, export the app (Vercel handles listening)
 module.exports = app;
