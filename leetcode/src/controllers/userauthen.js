@@ -28,9 +28,15 @@ const register = async (req, res) => {
       process.env.JWT_KEY,
       { expiresIn: 60 * 60 }
     );
+    // res.cookie("token", token, {
+    //   maxAge: 60 * 60 * 1000,
+    // });
     res.cookie("token", token, {
-      maxAge: 60 * 60 * 1000,
-    });
+  maxAge: 60 * 60 * 1000,
+  httpOnly: true,
+  secure: true,     // required on Vercel (HTTPS only)
+  sameSite: "none"  // allow cross-site cookie
+});
 
     const reply = {
       firstname: user.firstname,
@@ -100,7 +106,14 @@ const login = async (req, res) => {
     );
 
     // Set cookie
-    res.cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true });
+    // res.cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true });
+
+    res.cookie("token", token, {
+  maxAge: 60 * 60 * 1000,
+  httpOnly: true,
+  secure: true,     // required on Vercel (HTTPS only)
+  sameSite: "none"  // allow cross-site cookie
+});
 
     // Send success
     res.status(200).json({
