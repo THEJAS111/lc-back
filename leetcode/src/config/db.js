@@ -1,6 +1,21 @@
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
+
+let isConnected = false;
+
 async function main(){
-    mongoose.connect(process.env.DB_CONNECT_STRING);
-    console.log("connected")
+    if (isConnected) {
+        console.log("Using existing connection");
+        return;
+    }
+
+    try {
+        await mongoose.connect(process.env.DB_CONNECT_STRING);
+        isConnected = true;
+        console.log("connected");
+    } catch (error) {
+        console.error("DB connection failed:", error);
+        throw error;
+    }
 }
-module.exports=main;
+
+module.exports = main;
