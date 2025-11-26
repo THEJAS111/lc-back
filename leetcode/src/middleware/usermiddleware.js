@@ -11,7 +11,7 @@ const usermiddleware = async (req, res, next) => {
             throw new Error("Token does not exist.");
         }
 
-        const payload = jwt.verify(token,"helllowhatisup");
+        const payload = jwt.verify(token,process.env.JWT_KEY);
         const { _id } = payload;
          console.log("JWT payload:", payload);
 
